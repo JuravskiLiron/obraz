@@ -2,6 +2,7 @@
   <PropertyGroup>
     <RootNamespace>FaraX.Api</RootNamespace>
     <AssemblyName>FaraX.Api</AssemblyName>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,5 +17,11 @@
     <ProjectReference Include="..\FaraX.Domain\FaraX.Domain.csproj" />
     <ProjectReference Include="..\FaraX.Application\FaraX.Application.csproj" />
     <ProjectReference Include="..\FaraX.Infrastructure\FaraX.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\.dockerignore">
+      <Link>.dockerignore</Link>
+    </Content>
   </ItemGroup>
 </Project>
