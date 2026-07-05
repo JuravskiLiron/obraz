@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>FaraX.Domain</RootNamespace>
+    <AssemblyName>FaraX.Domain</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Bson" Version="3.1.0" />
+  </ItemGroup>
+</Project>
