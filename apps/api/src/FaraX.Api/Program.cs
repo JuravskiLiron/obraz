@@ -16,8 +16,7 @@ using Microsoft.OpenApi.Models;
 try { DotNetEnv.Env.TraversePath().Load(); } catch { /* no .env present — rely on real env vars */ }
 
 var builder = WebApplication.CreateBuilder(args);
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5080";
-builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
 // Surface environment variables through IConfiguration.
 builder.Configuration.AddEnvironmentVariables();
 
@@ -68,13 +67,17 @@ builder.Services
 
 builder.Services.AddAuthorization();
 
+// ----- CORS -----
+var corsOrigins = (builder.Configuration["CORS_ORIGINS"] ?? "http://localhost:5173")
+    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
-builder.Services.AddCors(o => o.AddPolicy("Frontend", p =>
-    p.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>()
-                  ?? ["http://localhost:5173", "https://obraz-bice.vercel.app"])
-        .AllowAnyMethod().AllowAnyHeader()));
-
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("web", policy =>
+        policy.WithOrigins(corsOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
 
 // ----- Swagger -----
 builder.Services.AddSwaggerGen(c =>
