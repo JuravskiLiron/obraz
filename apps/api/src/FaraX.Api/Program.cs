@@ -67,22 +67,13 @@ builder.Services
 
 builder.Services.AddAuthorization();
 
-// ----- CORS -----
-var corsOrigins = (builder.Configuration["CORS_ORIGINS"] ?? "http://localhost:5173")
-    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-// ── CORS ──
+
 builder.Services.AddCors(o => o.AddPolicy("Frontend", p =>
     p.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>()
                   ?? ["http://localhost:5173", "https://obraz-bice.vercel.app"])
         .AllowAnyMethod().AllowAnyHeader()));
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("web", policy =>
-        policy.WithOrigins(corsOrigins)
-              .AllowAnyHeader()
-              .AllowAnyMethod());
-});
+
 
 // ----- Swagger -----
 builder.Services.AddSwaggerGen(c =>
