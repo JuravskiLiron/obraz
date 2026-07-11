@@ -16,7 +16,8 @@ using Microsoft.OpenApi.Models;
 try { DotNetEnv.Env.TraversePath().Load(); } catch { /* no .env present — rely on real env vars */ }
 
 var builder = WebApplication.CreateBuilder(args);
-
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5080";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 // Surface environment variables through IConfiguration.
 builder.Configuration.AddEnvironmentVariables();
 

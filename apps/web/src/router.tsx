@@ -43,6 +43,8 @@ export const router = createBrowserRouter([
       { path: "women/:categorySlug", element: <ListingPage gender="women" /> },
       { path: "men", element: <ListingPage gender="men" /> },
       { path: "men/:categorySlug", element: <ListingPage gender="men" /> },
+            { path: "all", element: <ListingPage /> },
+      { path: "all/:categorySlug", element: <ListingPage /> },
       { path: "search", element: <ListingPage search /> },
 
       { path: "product/:slug", element: <ProductPage /> },

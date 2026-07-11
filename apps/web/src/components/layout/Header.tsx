@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useUiStore } from "@/store/uiStore";
 import { useAuthStore } from "@/store/authStore";
 import { useCart } from "@/hooks/useCart";
@@ -32,6 +32,8 @@ export function Header() {
   const openDrawer = useUiStore((s) => s.openDrawer);
   const isAuthed = useAuthStore((s) => s.isAuthenticated);
   const navigate = useNavigate();
+    const { pathname } = useLocation();
+
 
   const { data: cart } = useCart();
   const { data: wishlist } = useWishlist();
@@ -100,20 +102,32 @@ export function Header() {
 
         {/* gender switch (desktop) */}
         <div className="ml-3 hidden items-center gap-1 lg:flex">
-          {(["women", "men"] as const).map((g) => (
-            <button
-              key={g}
-              onClick={() => switchGender(g)}
-              className={cn(
-                "px-3 py-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors",
-                gender === g
-                  ? "text-fg underline underline-offset-[6px]"
-                  : "text-muted hover:text-fg",
-              )}
-            >
-              {g}
-            </button>
-          ))}
+          {([
+            { key: "all", label: "View all" },
+            { key: "women", label: "Women" },
+            { key: "men", label: "Men" },
+          ] as const).map((t) => {
+            const active =
+              t.key === "all"
+                ? pathname === "/" || pathname.startsWith("/all")
+                : pathname.startsWith(`/${t.key}`);
+            return (
+              <button
+                key={t.key}
+                onClick={() =>
+                  t.key === "all" ? navigate("/all") : switchGender(t.key)
+                }
+                className={cn(
+                  "px-3 py-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] transition-colors",
+                  active
+                    ? "text-fg underline underline-offset-[6px]"
+                    : "text-muted hover:text-fg",
+                )}
+              >
+                {t.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* desktop search */}

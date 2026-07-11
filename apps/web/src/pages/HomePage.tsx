@@ -8,8 +8,8 @@ import { ArrowRight } from "@/components/ui/icons";
 
 export function HomePage() {
   const gender = useUiStore((s) => s.gender);
-  const newIn = useNewIn(gender, 12);
-  const trending = useTrending(gender, 12);
+  const newIn = useNewIn(undefined, 12);
+  const trending = useTrending(undefined, 12);
   const { data: tree } = useCategoryTree(gender);
   const topCats = tree?.slice(0, 6) ?? [];
 

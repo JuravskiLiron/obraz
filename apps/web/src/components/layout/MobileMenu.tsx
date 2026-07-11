@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Drawer } from "@/components/ui/Drawer";
 import { useUiStore } from "@/store/uiStore";
 import { useAuthStore } from "@/store/authStore";
@@ -8,30 +8,48 @@ import { ChevronDown } from "@/components/ui/icons";
 import { cn } from "@/lib/utils";
 import type { Gender } from "@/types/api";
 
+
+
 export function MobileMenu() {
   const drawer = useUiStore((s) => s.drawer);
   const close = useUiStore((s) => s.closeDrawer);
   const gender = useUiStore((s) => s.gender);
   const setGender = useUiStore((s) => s.setGender);
   const isAuthed = useAuthStore((s) => s.isAuthenticated);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <Drawer open={drawer === "menu"} onClose={close} side="left" title="Menu">
       <div className="flex">
-        {(["women", "men"] as const).map((g) => (
-          <button
-            key={g}
-            onClick={() => setGender(g)}
-            className={cn(
-              "flex-1 border-b-2 py-3 text-sm font-semibold uppercase tracking-wide",
-              gender === g
-                ? "border-fg text-fg"
-                : "border-transparent text-muted",
-            )}
-          >
-            {g}
-          </button>
-        ))}
+        {([
+          { key: "all", label: "View all" },
+          { key: "women", label: "Women" },
+          { key: "men", label: "Men" },
+        ] as const).map((t) => {
+          const active =
+            t.key === "all"
+              ? pathname === "/" || pathname.startsWith("/all")
+              : pathname.startsWith(`/${t.key}`);
+          return (
+            <button
+              key={t.key}
+              onClick={() => {
+                if (t.key !== "all") setGender(t.key);
+                close();
+                navigate(t.key === "all" ? "/all" : `/${t.key}`);
+              }}
+              className={cn(
+                "flex-1 border-b-2 py-3 text-sm font-semibold uppercase tracking-wide",
+                active
+                  ? "border-fg text-fg"
+                  : "border-transparent text-muted",
+              )}
+            >
+              {t.label}
+            </button>
+          );
+        })}
       </div>
 
       <MobileTree gender={gender} onNavigate={close} />
