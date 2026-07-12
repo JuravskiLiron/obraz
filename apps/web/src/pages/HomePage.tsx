@@ -41,13 +41,13 @@ export function HomePage() {
                             <div className="flex gap-3">
                                 <Link
                                     to="/women"
-                                    className="flex h-12 flex-1 items-center justify-center border border-fg text-[12px] font-semibold uppercase tracking-[0.09em] text-fg transition-transform active:scale-[0.98]"
+                                    className="flex h-12 flex-1 items-center justify-center border border-bg text-[12px] font-semibold uppercase tracking-[0.09em] text-bg transition-transform active:scale-[0.98]"
                                 >
                                     Shop women
                                 </Link>
                                 <Link
                                     to="/men"
-                                    className="flex h-12 flex-1 items-center justify-center border border-fg text-[12px] font-semibold uppercase tracking-[0.09em] text-fg transition-transform active:scale-[0.98]"
+                                    className="flex h-12 flex-1 items-center justify-center border border-bg text-[12px] font-semibold uppercase tracking-[0.09em] text-bg transition-transform active:scale-[0.98]"
                                 >
                                     Shop men
                                 </Link>
