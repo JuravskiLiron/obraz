@@ -116,7 +116,7 @@ export function Gallery({ images, alt }: { images: ImageDto[]; alt: string }) {
                   <button
                       key={i}
                       onClick={() => setFsOpen(true)}
-                      className="relative aspect-[3/4] w-full shrink-0 snap-start snap-always bg-surface"
+                      className="relative h-[58vh] max-h-[560px] w-full shrink-0 snap-start snap-always bg-surface"
                       style={{ minWidth: "100%" }}
                       aria-label="Open full-screen image"
                   >
