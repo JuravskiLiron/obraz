@@ -72,7 +72,7 @@ export function Gallery({ images, alt }: { images: ImageDto[]; alt: string }) {
                         onClick={() => setActive(i)}
                         aria-label={`View image ${i + 1}`}
                         className={cn(
-                            "relative aspect-[3/4] w-full overflow-hidden bg-surface ring-inset transition-shadow",
+                            "relative h-[58vh] max-h-[560px] w-full shrink-0 snap-start snap-always bg-surface",
                             active === i ? "ring-2 ring-fg" : "ring-1 ring-line hover:ring-fg/40",
                         )}
                     >
