@@ -32,7 +32,7 @@ export function HomePage() {
                         <h1 className="mt-2 font-display text-[3.25rem] font-extrabold uppercase leading-[0.9] tracking-tight text-fg">
 
                             <br />
-                            Spring / Summer 26
+                           
                         </h1>
                         <p className="mt-3 max-w-[15rem] text-[13px] leading-relaxed text-fg/75">
 
@@ -41,7 +41,7 @@ export function HomePage() {
                             <div className="flex gap-3">
                                 <Link
                                     to="/women"
-                                    className="flex h-12 flex-1 items-center justify-center bg-fg text-[12px] font-semibold uppercase tracking-[0.09em] text-bg transition-transform active:scale-[0.98]"
+                                    className="flex h-12 flex-1 items-center justify-center border border-fg text-[12px] font-semibold uppercase tracking-[0.09em] text-fg transition-transform active:scale-[0.98]"
                                 >
                                     Shop women
                                 </Link>
