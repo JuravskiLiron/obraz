@@ -22,7 +22,7 @@ export function HomePage() {
             <div className="sm:hidden">
                 <div className="relative flex min-h-[440px] flex-col justify-end overflow-hidden bg-surface [height:74vh]">
                     <img
-                        src="https://res.cloudinary.com/gyz51tix/image/upload/v1783222083/IMAGE_2026-07-05_06_27_59_t3jcsj.jpg"
+                        src="https://i.ibb.co/mrcCPDRV/Trump-Epstein-Article.webp"
                         alt=""
                         className="absolute inset-0 h-full w-full object-cover"
                     />
