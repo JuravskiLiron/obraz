@@ -228,9 +228,9 @@ export function ProductPage() {
           <Gallery images={color?.images ?? []} alt={`${product.brand} ${product.name}`} />
 
           <div className="lg:max-w-md">
-            <h1 className="flex flex-wrap items-baseline gap-x-2 font-display text-xl font-bold leading-snug sm:text-2xl">
-              <span className="eyebrow text-muted">{product.brand}</span>
-              <span>{product.name}</span>
+            <h1 className="flex flex-wrap items-baseline gap-x-2 leading-snug">
+              <span className="eyebrow text-xl text-fg sm:text-2xl">{product.brand}</span>
+              <span className="font-display text-base font-bold sm:text-lg">{product.name}</span>
             </h1>
 
             <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">
