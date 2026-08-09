@@ -45,7 +45,6 @@ export function ProductPage() {
   const toggleWish = useToggleWishlist();
   const wishlisted = useIsWishlisted(product?.id ?? "");
 
-  // Reset selection + record recently viewed when the product changes.
   useEffect(() => {
     if (!product) return;
     setColorIdx(0);
@@ -75,8 +74,6 @@ export function ProductPage() {
     addRecent(summary);
   }, [product, addRecent]);
 
-  // Show the sticky mobile bar only after the main CTA has scrolled ABOVE the
-  // viewport (i.e. the user scrolled past it) — not while it's still below the fold.
   useEffect(() => {
     const el = actionsRef.current;
     if (!el) return;
@@ -93,7 +90,6 @@ export function ProductPage() {
 
   const color = product?.colors[colorIdx] ?? product?.colors[0];
 
-  // Sizes available for the chosen colour (out-of-stock disabled).
   const { sizeRun, disabled, variantFor } = useMemo(() => {
     if (!product || !color)
       return { sizeRun: [] as string[], disabled: [] as string[], variantFor: {} as Record<string, number> };
@@ -142,7 +138,6 @@ export function ProductPage() {
     );
   };
 
-  // Sticky-bar add: if no size chosen, scroll the size picker into view first.
   const onAddSticky = () => {
     if (!size) {
       setTriedSubmit(true);
@@ -231,17 +226,13 @@ export function ProductPage() {
                 </div>
             )}
           <div className="lg:max-w-md">
-            <div className="flex flex-wrap items-center gap-2">
-              {product.isNew && <Badge tone="new">New</Badge>}
-              {discount != null && <Badge tone="sale">-{discount}%</Badge>}
-              {sellingFast && <Badge tone="new">Selling fast</Badge>}
-            </div>
-            <p className="mt-3 eyebrow text-muted">{product.brand}</p>
-            <h1 className="mt-1 font-display text-xl font-bold sm:text-2xl">
-              {product.name}
+            <h1 className="font-display text-xl font-bold leading-snug sm:text-2xl">
+              <span className="text-muted">{product.brand}</span> {product.name}
             </h1>
 
-            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">
+            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+              {product.isNew && <Badge tone="new">New</Badge>}
+              {sellingFast && <Badge tone="new">Selling fast</Badge>}
               {priceBlock}
               {product.rating != null && (
                   <span className="flex items-center gap-1 text-[13px] text-muted">
