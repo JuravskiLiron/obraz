@@ -195,39 +195,7 @@ export function ProductPage() {
       <div className="pb-20 lg:pb-0">
         <div className="container-px grid grid-cols-1 gap-8 pb-6 pt-0 lg:grid-cols-2 lg:gap-12 lg:pt-6">
           <Gallery images={color?.images ?? []} alt={`${product.brand} ${product.name}`} />
-
-          <div className="lg:max-w-md">
-            <div className="flex flex-wrap items-center gap-2">
-              {product.isNew && <Badge tone="new">New</Badge>}
-              {discount != null && <Badge tone="sale">-{discount}%</Badge>}
-              {sellingFast && <Badge tone="new">Selling fast</Badge>}
-            </div>
-            <p className="mt-3 eyebrow text-muted">{product.brand}</p>
-            <h1 className="mt-1 font-display text-xl font-bold sm:text-2xl">
-              {product.name}
-            </h1>
-
-            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">
-              {priceBlock}
-              {product.rating != null && (
-                  <span className="flex items-center gap-1 text-[13px] text-muted">
-                <StarIcon className="h-4 w-4 text-fg" />
-                    {product.rating.toFixed(1)}
-                    {product.reviewsCount != null && ` (${product.reviewsCount})`}
-              </span>
-              )}
-            </div>
-
-            {/* Model / fit info line */}
-            {product.attributes.modelInfo && (
-                <p className="mt-3 text-[13px] text-muted">
-                  {product.attributes.modelInfo}
-                  {product.attributes.fit ? ` · ${product.attributes.fit}` : ""}
-                </p>
-            )}
-
-            {/* Colour — as image thumbnails */}
-            {product.colors.length > 0 && (
+{product.colors.length > 0 && (
                 <div className="mt-5">
                   <p className="mb-2 text-[13px] font-semibold uppercase tracking-[0.08em]">
                     Colour: <span className="text-muted">{color?.name}</span>
@@ -262,6 +230,38 @@ export function ProductPage() {
                   </div>
                 </div>
             )}
+          <div className="lg:max-w-md">
+            <div className="flex flex-wrap items-center gap-2">
+              {product.isNew && <Badge tone="new">New</Badge>}
+              {discount != null && <Badge tone="sale">-{discount}%</Badge>}
+              {sellingFast && <Badge tone="new">Selling fast</Badge>}
+            </div>
+            <p className="mt-3 eyebrow text-muted">{product.brand}</p>
+            <h1 className="mt-1 font-display text-xl font-bold sm:text-2xl">
+              {product.name}
+            </h1>
+
+            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">
+              {priceBlock}
+              {product.rating != null && (
+                  <span className="flex items-center gap-1 text-[13px] text-muted">
+                <StarIcon className="h-4 w-4 text-fg" />
+                    {product.rating.toFixed(1)}
+                    {product.reviewsCount != null && ` (${product.reviewsCount})`}
+              </span>
+              )}
+            </div>
+
+            {/* Model / fit info line */}
+            {product.attributes.modelInfo && (
+                <p className="mt-3 text-[13px] text-muted">
+                  {product.attributes.modelInfo}
+                  {product.attributes.fit ? ` · ${product.attributes.fit}` : ""}
+                </p>
+            )}
+
+            {/* Colour — as image thumbnails */}
+            
 
             {/* Size */}
             <div className="mt-5" ref={sizeRef}>
