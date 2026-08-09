@@ -72,6 +72,16 @@ export function ProductCard({
             className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 [@media(hover:hover)]:group-hover/card:opacity-100"
           />
         )}
+        {product.colors.length > 1 && (
+          <div className="mt-2">
+            <ColorSwatches
+              colors={product.colors}
+              selected={colorIdx}
+              onSelect={setColorIdx}
+              max={5}
+            />
+          </div>
+        )}
 
         <div className="absolute left-2 top-2 flex flex-col gap-1">
           {product.isNew && <Badge tone="new">New</Badge>}
@@ -107,28 +117,19 @@ export function ProductCard({
           {product.salePrice != null ? (
             <>
               <span className="text-[13px] font-semibold text-sale">
-                {formatPrice(product.salePrice, product.currency)}
+                {formatPrice(product.salePrice, '₪')}
               </span>
               <span className="text-[12px] text-subtle line-through">
-                {formatPrice(product.price, product.currency)}
+                {formatPrice(product.price, '₪')}
               </span>
             </>
           ) : (
             <span className="text-[13px] font-semibold text-fg">
-              {formatPrice(product.price, product.currency)}
+              {formatPrice(product.price, '₪')}
             </span>
           )}
         </div>
-        {product.colors.length > 1 && (
-          <div className="mt-2">
-            <ColorSwatches
-              colors={product.colors}
-              selected={colorIdx}
-              onSelect={setColorIdx}
-              max={5}
-            />
-          </div>
-        )}
+        
       </div>
     </div>
   );

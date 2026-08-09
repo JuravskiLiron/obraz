@@ -42,7 +42,8 @@ export function Gallery({ images, alt }: { images: ImageDto[]; alt: string }) {
   const step = (d: number) =>
       setActive((a) => (a + d + list.length) % list.length);
 
-  // Lock body scroll while the full-screen viewer is open.
+  // Lock body scroll while body is open, and add keyboard navigation.
+
   useEffect(() => {
     if (!fsOpen) return;
     const onKey = (e: KeyboardEvent) => {
