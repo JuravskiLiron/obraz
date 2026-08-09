@@ -186,51 +186,54 @@ export function ProductPage() {
       </>
   );
 
+  const colourBlock = product.colors.length > 0 && (
+      <div className="mt-4">
+        <p className="mb-2 text-[13px] font-semibold uppercase tracking-[0.08em]">
+          Colour: <span className="text-muted">{color?.name}</span>
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {product.colors.map((c, i) => (
+              <button
+                  key={`${c.name}-${i}`}
+                  type="button"
+                  onClick={() => {
+                    setColorIdx(i);
+                    setSize(null);
+                  }}
+                  aria-label={c.name}
+                  aria-pressed={colorIdx === i}
+                  title={c.name}
+                  className={cn(
+                      "h-[68px] w-[52px] overflow-hidden bg-surface ring-inset transition-shadow",
+                      colorIdx === i
+                          ? "ring-2 ring-fg"
+                          : "ring-1 ring-line hover:ring-fg/50",
+                  )}
+              >
+                <img
+                    src={c.images[0]?.url}
+                    alt=""
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                />
+              </button>
+          ))}
+        </div>
+      </div>
+  );
+
   return (
       <div className="pb-20 lg:pb-0">
-        <div className="container-px grid grid-cols-1 gap-8 pb-6 pt-0 lg:grid-cols-2 lg:gap-12 lg:pt-6">
+        <div className="container-px grid grid-cols-1 gap-4 pb-6 pt-0 lg:grid-cols-2 lg:gap-12 lg:pt-6">
           <Gallery images={color?.images ?? []} alt={`${product.brand} ${product.name}`} />
-{product.colors.length > 0 && (
-                <div className="mt-5">
-                  <p className="mb-2 text-[13px] font-semibold uppercase tracking-[0.08em]">
-                    Colour: <span className="text-muted">{color?.name}</span>
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {product.colors.map((c, i) => (
-                        <button
-                            key={`${c.name}-${i}`}
-                            type="button"
-                            onClick={() => {
-                              setColorIdx(i);
-                              setSize(null);
-                            }}
-                            aria-label={c.name}
-                            aria-pressed={colorIdx === i}
-                            title={c.name}
-                            className={cn(
-                                "h-[68px] w-[52px] overflow-hidden bg-surface ring-inset transition-shadow",
-                                colorIdx === i
-                                    ? "ring-2 ring-fg"
-                                    : "ring-1 ring-line hover:ring-fg/50",
-                            )}
-                        >
-                          <img
-                              src={c.images[0]?.url}
-                              alt=""
-                              loading="lazy"
-                              className="h-full w-full object-cover"
-                          />
-                        </button>
-                    ))}
-                  </div>
-                </div>
-            )}
+
           <div className="lg:max-w-md">
-            <h1 className="font-display text-xl font-bold leading-snug sm:text-2xl">
-              <span className="text-muted">{product.brand}</span> {product.name}
+            <h1 className="flex flex-wrap items-baseline gap-x-2 font-display text-xl font-bold leading-snug sm:text-2xl">
+              <span className="eyebrow text-muted">{product.brand}</span>
+              <span>{product.name}</span>
             </h1>
 
-            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">
               {product.isNew && <Badge tone="new">New</Badge>}
               {sellingFast && <Badge tone="new">Selling fast</Badge>}
               {priceBlock}
@@ -245,17 +248,17 @@ export function ProductPage() {
 
             {/* Model / fit info line */}
             {product.attributes.modelInfo && (
-                <p className="mt-3 text-[13px] text-muted">
+                <p className="mt-2 text-[13px] text-muted">
                   {product.attributes.modelInfo}
                   {product.attributes.fit ? ` · ${product.attributes.fit}` : ""}
                 </p>
             )}
 
             {/* Colour — as image thumbnails */}
-            
+            {colourBlock}
 
             {/* Size */}
-            <div className="mt-5" ref={sizeRef}>
+            <div className="mt-4" ref={sizeRef}>
               <SizeSelector
                   sizes={sizeRun}
                   selected={size}
@@ -276,7 +279,7 @@ export function ProductPage() {
             </div>
 
             {/* Actions */}
-            <div className="mt-5 flex gap-3" ref={actionsRef}>
+            <div className="mt-4 flex gap-3" ref={actionsRef}>
               <Button
                   fullWidth
                   size="lg"
@@ -323,7 +326,7 @@ export function ProductPage() {
               </p>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-6">
               <ProductAccordions product={product} />
             </div>
           </div>
@@ -384,7 +387,7 @@ export function ProductPage() {
 
 function PdpSkeleton() {
   return (
-      <div className="container-px grid grid-cols-1 gap-8 pb-6 pt-0 lg:grid-cols-2 lg:gap-12 lg:pt-6">
+      <div className="container-px grid grid-cols-1 gap-4 pb-6 pt-0 lg:grid-cols-2 lg:gap-12 lg:pt-6">
         <Skeleton className="aspect-[3/4] w-full" />
         <div className="space-y-4 lg:max-w-md">
           <Skeleton className="h-3 w-24" />
