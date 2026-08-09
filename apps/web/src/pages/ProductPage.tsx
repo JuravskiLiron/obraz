@@ -172,10 +172,10 @@ export function ProductPage() {
         {salePrice != null ? (
             <>
           <span className="text-lg font-semibold text-sale">
-            {formatPrice(salePrice, '₪')}
+            {formatPrice(salePrice, product.currency)}
           </span>
               <span className="text-sm text-subtle line-through">
-            {formatPrice(price, '₪')}
+            {formatPrice(price, product.currency)}
           </span>
               {discount != null && (
                   <span className="text-[13px] font-semibold text-sale">
@@ -185,7 +185,7 @@ export function ProductPage() {
             </>
         ) : (
             <span className="text-lg font-semibold">
-          {formatPrice(price, '₪')}
+          {formatPrice(price, product.currency)}
         </span>
         )}
       </>
@@ -196,40 +196,40 @@ export function ProductPage() {
         <div className="container-px grid grid-cols-1 gap-8 pb-6 pt-0 lg:grid-cols-2 lg:gap-12 lg:pt-6">
           <Gallery images={color?.images ?? []} alt={`${product.brand} ${product.name}`} />
 {product.colors.length > 0 && (
-    <div className="mt-3">
-      <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.08em]">
-        Colour: <span className="text-muted">{color?.name}</span>
-      </p>
-      <div className="flex flex-wrap gap-1.5">
-        {product.colors.map((c, i) => (
-            <button
-                key={`${c.name}-${i}`}
-                type="button"
-                onClick={() => {
-                  setColorIdx(i);
-                  setSize(null);
-                }}
-                aria-label={c.name}
-                aria-pressed={colorIdx === i}
-                title={c.name}
-                className={cn(
-                    "h-[58px] w-[44px] overflow-hidden bg-surface ring-inset transition-shadow",
-                    colorIdx === i
-                        ? "ring-2 ring-fg"
-                        : "ring-1 ring-line hover:ring-fg/50",
-                )}
-            >
-              <img
-                  src={c.images[0]?.url}
-                  alt=""
-                  loading="lazy"
-                  className="h-full w-full object-cover"
-              />
-            </button>
-        ))}
-      </div>
-    </div>
-)}
+                <div className="mt-5">
+                  <p className="mb-2 text-[13px] font-semibold uppercase tracking-[0.08em]">
+                    Colour: <span className="text-muted">{color?.name}</span>
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {product.colors.map((c, i) => (
+                        <button
+                            key={`${c.name}-${i}`}
+                            type="button"
+                            onClick={() => {
+                              setColorIdx(i);
+                              setSize(null);
+                            }}
+                            aria-label={c.name}
+                            aria-pressed={colorIdx === i}
+                            title={c.name}
+                            className={cn(
+                                "h-[68px] w-[52px] overflow-hidden bg-surface ring-inset transition-shadow",
+                                colorIdx === i
+                                    ? "ring-2 ring-fg"
+                                    : "ring-1 ring-line hover:ring-fg/50",
+                            )}
+                        >
+                          <img
+                              src={c.images[0]?.url}
+                              alt=""
+                              loading="lazy"
+                              className="h-full w-full object-cover"
+                          />
+                        </button>
+                    ))}
+                  </div>
+                </div>
+            )}
           <div className="lg:max-w-md">
             <div className="flex flex-wrap items-center gap-2">
               {product.isNew && <Badge tone="new">New</Badge>}
