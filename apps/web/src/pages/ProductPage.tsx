@@ -229,7 +229,7 @@ export function ProductPage() {
 
           <div className="lg:max-w-md">
             <h1 className="leading-snug">
-              <span className="text-xl mt-3 eyebrow text-muted">
+              <span className="text-l mt-3 eyebrow text-muted">
                 {product.brand}
               </span>{" "}
               <span className="font-display text-xl font-bold sm:text-2xl">
