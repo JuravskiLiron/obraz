@@ -162,104 +162,93 @@ export function ProductPage() {
     );
   };
 
-  const priceBlock = (
-      <>
-        {salePrice != null ? (
-            <>
-          <span className="text-lg font-semibold text-sale">
-            {formatPrice(salePrice, product.currency)}
-          </span>
-              <span className="text-sm text-subtle line-through">
-            {formatPrice(price, product.currency)}
-          </span>
-              {discount != null && (
-                  <span className="text-[13px] font-semibold text-sale">
-              (-{discount}%)
-            </span>
-              )}
-            </>
-        ) : (
-            <span className="text-lg font-semibold">
-          {formatPrice(price, product.currency)}
-        </span>
-        )}
-      </>
-  );
-
-  const colourBlock = product.colors.length > 0 && (
-      <div className="mt-4">
-        <p className="mb-2 text-[13px] font-semibold uppercase tracking-[0.08em]">
-          Colour: <span className="text-muted">{color?.name}</span>
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {product.colors.map((c, i) => (
-              <button
-                  key={`${c.name}-${i}`}
-                  type="button"
-                  onClick={() => {
-                    setColorIdx(i);
-                    setSize(null);
-                  }}
-                  aria-label={c.name}
-                  aria-pressed={colorIdx === i}
-                  title={c.name}
-                  className={cn(
-                      "h-[68px] w-[52px] overflow-hidden bg-surface ring-inset transition-shadow",
-                      colorIdx === i
-                          ? "ring-2 ring-fg"
-                          : "ring-1 ring-line hover:ring-fg/50",
-                  )}
-              >
-                <img
-                    src={c.images[0]?.url}
-                    alt=""
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                />
-              </button>
-          ))}
-        </div>
-      </div>
-  );
-
   return (
-      <div className="pb-20 lg:pb-0">
+      <div className="pb-24 lg:pb-0">
         <div className="container-px grid grid-cols-1 gap-4 pb-6 pt-0 lg:grid-cols-2 lg:gap-12 lg:pt-6">
           <Gallery images={color?.images ?? []} alt={`${product.brand} ${product.name}`} />
 
           <div className="lg:max-w-md">
-            <h1 className="leading-snug">
-              <span className="font-display text-xl font-bold sm:text-2xl mt-3 eyebrow text-muted">
-                {product.brand}
-              </span>{" "}
-              <span className="font-display text-xl font-bold sm:text-2xl">
-                {product.name}
-              </span>
+            {/* Brand + name — one size, brand muted (ASOS-style) */}
+            <h1 className="text-[15px] font-normal leading-snug sm:text-base">
+              <span className="text-muted">{product.brand}</span> {product.name}
             </h1>
 
-            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+            {/* Price */}
+            <div className="mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[15px]">
               {product.isNew && <Badge tone="new">New</Badge>}
               {sellingFast && <Badge tone="new">Selling fast</Badge>}
-              {priceBlock}
+              {salePrice != null ? (
+                  <>
+                    <span className="font-semibold text-sale">
+                      {formatPrice(salePrice, product.currency)}
+                    </span>
+                    <span className="text-[13px] text-subtle line-through">
+                      {formatPrice(price, product.currency)}
+                    </span>
+                    {discount != null && (
+                        <span className="text-[13px] font-medium text-sale">
+                          (-{discount}%)
+                        </span>
+                    )}
+                  </>
+              ) : (
+                  <span className="font-semibold">
+                    {formatPrice(price, product.currency)}
+                  </span>
+              )}
               {product.rating != null && (
-                  <span className="flex items-center gap-1 text-[13px] text-muted">
-                <StarIcon className="h-4 w-4 text-fg" />
+                  <span className="flex items-center gap-1 text-[12px] text-muted">
+                    <StarIcon className="h-3.5 w-3.5 text-fg" />
                     {product.rating.toFixed(1)}
                     {product.reviewsCount != null && ` (${product.reviewsCount})`}
-              </span>
+                  </span>
               )}
             </div>
 
-            {/* Model / fit info line */}
+            {/* Model / fit info */}
             {product.attributes.modelInfo && (
-                <p className="mt-2 text-[13px] text-muted">
+                <p className="mt-2 text-[12px] text-muted">
                   {product.attributes.modelInfo}
                   {product.attributes.fit ? ` · ${product.attributes.fit}` : ""}
                 </p>
             )}
 
-            {/* Colour — as image thumbnails */}
-            {colourBlock}
+            {/* Colour */}
+            {product.colors.length > 0 && (
+                <div className="mt-4">
+                  <p className="mb-1.5 text-[12px] font-semibold uppercase tracking-[0.06em]">
+                    Colour: <span className="text-muted">{color?.name}</span>
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {product.colors.map((c, i) => (
+                        <button
+                            key={`${c.name}-${i}`}
+                            type="button"
+                            onClick={() => {
+                              setColorIdx(i);
+                              setSize(null);
+                            }}
+                            aria-label={c.name}
+                            aria-pressed={colorIdx === i}
+                            title={c.name}
+                            className={cn(
+                                "h-14 w-11 overflow-hidden bg-surface ring-inset transition-shadow",
+                                colorIdx === i
+                                    ? "ring-2 ring-fg"
+                                    : "ring-1 ring-line hover:ring-fg/50",
+                            )}
+                        >
+                          <img
+                              src={c.images[0]?.url}
+                              alt=""
+                              loading="lazy"
+                              className="h-full w-full object-cover"
+                          />
+                        </button>
+                    ))}
+                  </div>
+                </div>
+            )}
 
             {/* Size */}
             <div className="mt-4" ref={sizeRef}>
@@ -271,19 +260,19 @@ export function ProductPage() {
                   onOpenGuide={() => setGuideOpen(true)}
               />
               {triedSubmit && !size && (
-                  <p className="mt-2 text-[12px] text-sale">
+                  <p className="mt-1.5 text-[12px] text-sale">
                     Select a size to add to bag.
                   </p>
               )}
               {size && stock > 0 && stock <= LOW_STOCK && (
-                  <p className="mt-2 text-[12px] text-sale">
+                  <p className="mt-1.5 text-[12px] text-sale">
                     Hurry — only {stock} left in stock.
                   </p>
               )}
             </div>
 
             {/* Actions */}
-            <div className="mt-4 flex gap-3" ref={actionsRef}>
+            <div className="mt-4 flex gap-2.5" ref={actionsRef}>
               <Button
                   fullWidth
                   size="lg"
@@ -307,16 +296,9 @@ export function ProductPage() {
               </Button>
             </div>
 
-            {/* Delivery reassurance */}
-            <div className="mt-4 flex items-start gap-2.5 border border-line p-3 text-[12px] text-muted">
-              <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="mt-0.5 shrink-0"
-                  aria-hidden
-              >
+            {/* Delivery */}
+            <p className="mt-3 flex items-center gap-2 text-[11px] text-muted">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" className="shrink-0" aria-hidden>
                 <path
                     d="M3 7h11v8H3V7Zm11 3h4l3 3v2h-7v-5Zm-7.5 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm11 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
                     stroke="currentColor"
@@ -324,13 +306,10 @@ export function ProductPage() {
                     strokeLinejoin="round"
                 />
               </svg>
-              <p>
-                Delivery calculated at checkout.{" "}
-                <span className="text-fg">Free 28-day returns.</span>
-              </p>
-            </div>
+              Delivery calculated at checkout · Free 28-day returns
+            </p>
 
-            <div className="mt-6">
+            <div className="mt-5">
               <ProductAccordions product={product} />
             </div>
           </div>
@@ -345,18 +324,14 @@ export function ProductPage() {
 
         {/* Sticky mobile Add-to-Bag bar */}
         {showSticky && (
-            <div className="fixed inset-x-0 bottom-0 z-40 flex items-center gap-3 border-t border-line bg-bg px-4 py-3 shadow-[0_-6px_20px_rgba(0,0,0,0.08)] lg:hidden">
+            <div className="fixed inset-x-0 bottom-0 z-40 flex items-center gap-2.5 border-t border-line bg-bg px-4 py-2.5 shadow-[0_-6px_20px_rgba(0,0,0,0.08)] lg:hidden">
               <div className="min-w-0 flex-1">
                 <p className="truncate text-[12px] text-muted">{product.name}</p>
-                <p className="flex items-center gap-2 text-sm font-semibold">
+                <p className="flex items-center gap-2 text-[13px] font-semibold">
                   {salePrice != null ? (
                       <>
-                  <span className="text-sale">
-                    {formatPrice(salePrice, product.currency)}
-                  </span>
-                        <span className="text-[12px] text-subtle line-through">
-                    {formatPrice(price, product.currency)}
-                  </span>
+                        <span className="text-sale">{formatPrice(salePrice, product.currency)}</span>
+                        <span className="text-[11px] text-subtle line-through">{formatPrice(price, product.currency)}</span>
                       </>
                   ) : (
                       formatPrice(price, product.currency)
@@ -393,12 +368,11 @@ function PdpSkeleton() {
   return (
       <div className="container-px grid grid-cols-1 gap-4 pb-6 pt-0 lg:grid-cols-2 lg:gap-12 lg:pt-6">
         <Skeleton className="aspect-[3/4] w-full" />
-        <div className="space-y-4 lg:max-w-md">
-          <Skeleton className="h-3 w-24" />
-          <Skeleton className="h-6 w-3/4" />
-          <Skeleton className="h-5 w-20" />
+        <div className="space-y-3 lg:max-w-md">
+          <Skeleton className="h-4 w-3/4" />
+          <Skeleton className="h-4 w-20" />
           <Skeleton className="h-10 w-full" />
-          <Skeleton className="h-14 w-full" />
+          <Skeleton className="h-12 w-full" />
         </div>
       </div>
   );
