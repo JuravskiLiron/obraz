@@ -2,6 +2,7 @@ using System.Text.RegularExpressions;
 using FaraX.Application.Common;
 using FaraX.Application.Common.Interfaces;
 using FaraX.Domain.Entities;
+using FaraX.Domain.Enums;
 using MongoDB.Driver;
 
 namespace FaraX.Infrastructure.Persistence.Repositories;
@@ -116,7 +117,12 @@ public class ProductRepository : IProductRepository
         var clauses = new List<FilterDefinition<Product>> { b.Eq(p => p.IsActive, true) };
 
         if (filter.Gender is not null)
-            clauses.Add(b.Eq(p => p.Gender, filter.Gender.Value));
+{
+        var g = filter.Gender.Value;
+        clauses.Add(g == Gender.Unisex
+            ? b.Eq(p => p.Gender, Gender.Unisex)
+            : b.In(p => p.Gender, new[] { g, Gender.Unisex }));
+}
 
         if (filter.CategoryIds.Count > 0)
             clauses.Add(b.In(p => p.CategoryId, filter.CategoryIds));
