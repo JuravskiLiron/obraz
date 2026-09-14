@@ -22,7 +22,7 @@ export function HomePage() {
             <div className="sm:hidden">
                 <div className="relative flex min-h-[440px] flex-col justify-end overflow-hidden bg-surface [height:74vh]">
                     <img
-                        src="https://i.ibb.co/R4zKWjgj/Group-1.png"
+                        src="https://i.ibb.co/Fbg3V54n/Group-1-2.png"
                         alt=""
                         className="absolute inset-0 h-full w-full object-cover"
                     />
