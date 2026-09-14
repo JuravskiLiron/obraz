@@ -103,7 +103,11 @@ export function ProductPage() {
     for (const v of forColor) stockBySize[v.size] = v.stock;
     return { sizeRun: run, disabled: dis, variantFor: stockBySize };
   }, [product, color]);
-
+useEffect(() => {
+  if (sizeRun.length === 1 && !disabled.includes(sizeRun[0])) {
+    setSize(sizeRun[0]);
+  }
+}, [sizeRun, disabled]);
   if (isLoading) return <PdpSkeleton />;
   if (isError || !product) return <ErrorState onRetry={() => refetch()} />;
 
@@ -214,7 +218,7 @@ export function ProductPage() {
             )}
 
             {/* Colour */}
-            {product.colors.length > 0 && (
+            {product.colors.length > 1 && (
                 <div className="mt-4">
                   <p className="mb-1.5 text-[12px] font-semibold uppercase tracking-[0.06em]">
                     Colour: <span className="text-muted">{color?.name}</span>
@@ -251,19 +255,28 @@ export function ProductPage() {
             )}
 
             {/* Size */}
-            <div className="mt-4" ref={sizeRef}>
-              <SizeSelector
-                  sizes={sizeRun}
-                  selected={size}
-                  disabled={disabled}
-                  onSelect={setSize}
-                  onOpenGuide={() => setGuideOpen(true)}
-              />
-              {triedSubmit && !size && (
-                  <p className="mt-1.5 text-[12px] text-sale">
-                    Select a size to add to bag.
+                       <div className="mt-4" ref={sizeRef}>
+              {sizeRun.length > 1 ? (
+                  <>
+                    <SizeSelector
+                        sizes={sizeRun}
+                        selected={size}
+                        disabled={disabled}
+                        onSelect={setSize}
+                        onOpenGuide={() => setGuideOpen(true)}
+                    />
+                    {triedSubmit && !size && (
+                        <p className="mt-1.5 text-[12px] text-sale">
+                          Select a size to add to bag.
+                        </p>
+                    )}
+                  </>
+              ) : sizeRun.length === 1 ? (
+                  <p className="text-[12px] text-muted">
+                    Size: <span className="text-fg">{sizeRun[0]}</span>
                   </p>
-              )}
+              ) : null}
+
               {size && stock > 0 && stock <= LOW_STOCK && (
                   <p className="mt-1.5 text-[12px] text-sale">
                     Hurry — only {stock} left in stock.
