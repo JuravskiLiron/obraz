@@ -21,6 +21,7 @@ export function HomePage() {
             {/* ---------- Mobile: single premium hero + dual CTAs ---------- */}
             <div className="sm:hidden">
                 <div className="relative flex min-h-[440px] flex-col justify-end overflow-hidden bg-surface [height:74vh]">
+               
                     <img
                         src="https://i.ibb.co/PvkrB4pH/Facetune-14-09-2026-13-09-33.avif"
                         alt=""
@@ -29,11 +30,7 @@ export function HomePage() {
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/20 via-black/5 to-transparent" />
                     <div className="relative animate-slide-up p-6">
                         <p className="eyebrow text-fg/70"></p>
-                        <h1 className="mt-2 font-display text-[3.25rem] font-extrabold uppercase leading-[0.9] tracking-tight text-fg">
-                            NO METTER WHAT YOU DO,
-                            <br />
-                           DO IT WITH STYLE.
-                        </h1>
+                        
                         <p className="mt-3 max-w-[15rem] text-[13px] leading-relaxed text-fg/75">
 
                         </p>
