@@ -30,9 +30,9 @@ export function HomePage() {
                     <div className="relative animate-slide-up p-6">
                         <p className="eyebrow text-fg/70"></p>
                         <h1 className="mt-2 font-display text-[3.25rem] font-extrabold uppercase leading-[0.9] tracking-tight text-fg">
-
+                            NO METTER WHAT YOU DO,
                             <br />
-                           
+                           DO IT WITH STYLE.
                         </h1>
                         <p className="mt-3 max-w-[15rem] text-[13px] leading-relaxed text-fg/75">
 
